@@ -18,27 +18,14 @@ function createFeatures(earthquakeData) {
         console.log(magnitude)
         return magnitude * 10000;
     }
-
-    function markerColor(magnitude) {
-        if (magnitude > 5) {
-            return "#ff0000"
-        }
-        else if (magnitude > 4) {
-            return "#ff9f00"
-        }
-        else if (magnitude > 3) {
-            return "#ffff00"
-        }
-        else if (magnitude > 2) {
-            return "#00ff00"
-        }
-        else if (magnitude > 1) {
-            return "#00ffff"
-        }
-        else {
-            return "#0000ff"
-        }
-    }
+    
+    function chooseColor(depth) {
+        if (depth < 10) return "#64B5F6";
+        else if (depth < 30) return "#43A047";
+        else if (depth < 50) return "#FFF176";
+        else if (depth < 70) return "#FB8C00";
+        else if (depth < 90) return "#B71C1C";
+        else return "#FF3300";
 
     // Create a GeoJSON layer containing the features array on the earthquakeData object
     // Run the onEachFeature function once for each piece of data in the array
@@ -103,12 +90,12 @@ function createMap(earthquakes) {
     legend.onAdd = function (myMap) {
         var div = L.DomUtil.create("div", "legend");
         div.innerHTML += "<h4>Magnitude</h4>";
-        div.innerHTML += '<i style="background: #ff0000"></i><span>>5</span><br>';
-        div.innerHTML += '<i style="background: #ff9f00"></i><span>>4</span><br>';
-        div.innerHTML += '<i style="background: #ffff00"></i><span>>3</span><br>';
-        div.innerHTML += '<i style="background: #00ff00"></i><span>>2</span><br>';
-        div.innerHTML += '<i style="background: #00ffff"></i><span>>1</span><br>';
-        div.innerHTML += '<i style="background: #0000ff"></i><span>&#8804;1</span><br>'
+        div.innerHTML += '<i style="background: #ff0000"></i><span>>10km or less</span><br>';
+        div.innerHTML += '<i style="background: #ff9f00"></i><span>>30 km or less</span><br>';
+        div.innerHTML += '<i style="background: #ffff00"></i><span>>50 km or less</span><br>';
+        div.innerHTML += '<i style="background: #00ff00"></i><span>>70 km or less</span><br>';
+        div.innerHTML += '<i style="background: #00ffff"></i><span>>90 km or less</span><br>';
+        div.innerHTML += '<i style="background: #0000ff"></i><span>&#8804;More than 90km</span><br>'
 
         return div;
     };
